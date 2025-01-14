@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import fetchAssets from "./services/fetchAssets";
 import AssetTable from "./Components/AssetTable";
 import MapView from "./Components/MapView";
-import "./styles/App.css";
+import "./App.css";
 
 const App = () => {
   const [assets, setAssets] = useState([]);
