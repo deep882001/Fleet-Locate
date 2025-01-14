@@ -1,0 +1,20 @@
+.asset-table {
+    margin: 20px 0;
+  }
+  
+  .asset-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .asset-table th,
+  .asset-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .asset-table th {
+    background-color: #f4f4f4;
+  }
+  
