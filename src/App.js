@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import fetchAssets from "./services/fetchAssets";
+import AssetTable from "./Components/AssetTable";
+import MapView from "./Components/MapView";
+import "./styles/App.css";
 
-function App() {
+const App = () => {
+  const [assets, setAssets] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadAssets = async () => {
+      try {
+        const fetchedAssets = await fetchAssets();
+        setAssets(fetchedAssets);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    loadAssets();
+
+    const intervalId = setInterval(() => {
+      loadAssets();
+    }, 3600000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Asset Locations</h1>
+      {error && <p className="error">{error}</p>}
+      <AssetTable assets={assets} />
+      <MapView assets={assets} />
     </div>
   );
-}
+};
 
 export default App;
